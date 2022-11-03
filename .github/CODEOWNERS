@@ -1,0 +1,5 @@
+# Order is important; the last matching pattern takes the most precedence
+# Add teams preferably, it is easier to manage.
+# Teams added here also need to be added to the git repo contributors with write permission.
+
+* @CQ/jamies-org-code-owners
