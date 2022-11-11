@@ -13,7 +13,8 @@
     "prepublishOnly": "npm test && npm run build",
     "coverage": "./node_modules/.bin/nyc npm run testOnly",
     "lint": "./node_modules/.bin/eslint ./src ./e2e ./test",
-    "e2e": "./node_modules/.bin/mocha --recursive ./e2e"
+    "e2e": "./node_modules/.bin/mocha --recursive ./e2e",
+    "semantic-release": "semantic-release"
   },
   "author": "Adobe",
   "contributors": [
@@ -30,6 +31,7 @@
     "@babel/core": "^7.18.9",
     "@babel/preset-env": "^7.9.0",
     "@babel/preset-stage-2": "^7.8.3",
+    "@semantic-release/git": "^9.0.0",
     "axios": "^0.27.2",
     "browserslist": "^4.21.2",
     "cookie-parser": "^1.4.6",
@@ -47,6 +49,9 @@
     "regenerator-runtime": "0.13.5",
     "rimraf": "^3.0.2",
     "sinon": "^11.1.1"
+  },
+  "optionalDependencies": {
+    "semantic-release": "17.4.7"
   },
   "keywords": [
     "retry",
