@@ -308,6 +308,14 @@ PRs whose messages do not meet this format will _not_ generate a new release.
 Release notes are generated based on semantic-release's [eslint](https://github.com/conventional-changelog/conventional-changelog/tree/master/packages/conventional-changelog-eslint) preset. Follow the guidelines
 in the preset's documentation to include commit messages in a release's notes.
 
+As a quick example, the following illustrates a commit that will be included as a bug fix in the release notes:
+
+```
+Fix: Fixed in issue with the client (fixes #1234)
+
+This can be a longer description of what the issue fixes.
+```
+
 # Contributing
 
 Contributions are welcomed! Read the [Contributing Guide](CONTRIBUTING.md) for more information.
