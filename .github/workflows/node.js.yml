@@ -55,10 +55,10 @@ jobs:
       - uses: actions/checkout@v2
         with:
           persist-credentials: false
-      - name: Use Node.js 12.19
+      - name: Use Node.js 16.17
         uses: actions/setup-node@v1
         with:
-          node-version: '12.19'
+          node-version: '16.17'
       - run: npm install
       - run: npm run build
       - run: npm run semantic-release
