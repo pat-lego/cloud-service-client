@@ -17,6 +17,9 @@
     "semantic-release": "semantic-release"
   },
   "author": "Adobe",
+  "publishConfig": {
+    "access": "public"
+  },
   "contributors": [
     "Mark Frisbey"
   ],
