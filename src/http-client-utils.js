@@ -44,6 +44,7 @@ async function retryWithStrategies(httpOptions, backend, response, attempts) {
       attempts,
       maxAttempts: httpOptions.getMaxRetries(),
       delayMultiple: httpOptions.getRetryDelayMultiple(),
+      delay: httpOptions.getRetryDelay(),
     };
     const shouldRetry = await strategy.shouldRetry(retryOptions);
     if (strategy.constructor) {
@@ -54,13 +55,13 @@ async function retryWithStrategies(httpOptions, backend, response, attempts) {
     if (shouldRetry) {
       const delayMultiple = await strategy.getRetryDelayMultiple(retryOptions);
       const maxRetries = await strategy.getMaxRetryCount(retryOptions);
+      const delay = await strategy.getRetryDelay(retryOptions);
 
       if (attempts >= maxRetries && maxRetries >= 0) {
         return false;
       }
 
-      let retryDelay =
-        httpOptions.getRetryDelay() * Math.pow(delayMultiple, attempts - 1);
+      let retryDelay = delay * Math.pow(delayMultiple, attempts - 1);
       return retryDelay;
     }
   }

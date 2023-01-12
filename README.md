@@ -140,10 +140,12 @@ fetch(url, {
     * {function} `shouldRetry`: Should return a `Promise` that resolves to true if the information provided by the client warrants a retry. The function will be passed a single argument: an object consisting of the following properties:
       * {number} attempts: The number of times the current request has been sent.
       * {number} maxAttempts: The _default_ maximum number of attempts as provided in the client's options.
+      * {number} delay: The _default_ time, in milliseconds, that the client should delay between retries.
       * {number} delayMultiple: The _default_ multiple as provided in the client's options.
       * {*} response: Response that was the result of the request. This will be the raw response from the underlying HTTP library.
       * {string} url: URL to which the client sent the HTTP request that generated the response.
       * {object} options: Simple object containing the raw options that were given to the underlying HTTP library.
+    * {function} `getDelay`: Should return a `Promise` that resolves with the amount of time, in milliseconds, that the client should wait before retrying the request. This value will be used in conjunction with the delay multiple to exponentially delay subsequent retries. The function will be called with a single argument: an object matching the one described in the `shouldRetry` function. If not specified, the value will default to the delay provided in the client's retry options.
     * {function} `getDelayMultiple`: Should return a `Promise` that resolves to the multiple to use when calculating the amount of time to delay before retrying the request. The function will be called with a single argument: an object matching the object described in the `shouldRetry` function. If not specified the value will default to the multiple provided in the client's retry options.
     * {function} `getMaxRetries`: Should return a `Promise` that resolves to the maximum number of times that a given request should be made. The function will be called with a single argument: an object matching the object described in the `shouldRetry` function. If not specified, the value will default to the number provided in the client's retry options. Note that `-1` indicates the client should continue to retry indefinitely; _use this option with extreme care_.
   * {number} `count`: The maximum number of times the client will retry a given request. Note that this is a _default_ value and will not necessarily be respected by all retry strategies. Default: 3.

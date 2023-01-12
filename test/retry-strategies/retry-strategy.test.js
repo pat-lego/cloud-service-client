@@ -30,4 +30,18 @@ describe("retry strategy tests", function () {
       }))
     );
   });
+
+  it("test retry strategy delay default", async function () {
+    const retryStrategy = new RetryStrategy();
+    const retryDelay = await retryStrategy.getRetryDelay({ delay: 1000 });
+    assert.strictEqual(retryDelay, 1000);
+  });
+
+  it("test retry strategy delay specified", async function () {
+    const retryStrategy = new RetryStrategy({
+      getDelay: () => 500,
+    });
+    const retryDelay = await retryStrategy.getRetryDelay({ delay: 1000 });
+    assert.strictEqual(retryDelay, 500);
+  });
 });

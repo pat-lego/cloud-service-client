@@ -105,6 +105,20 @@ class RetryStrategy {
   }
 
   /**
+   * Retrieves the amount of time, in milliseconds, that the retry should be delayed. Note
+   * that the retry delay multiple will be used to expentially increase this delay with
+   * each retry.
+   *
+   * @param {RetryOptions} retryOptions Information about the current request, which
+   *  can be used to determine the delay.
+   * @returns {Promise<number>} Retry delay.
+   */
+  async getRetryDelay(retryOptions) {
+    const { getDelay = async () => retryOptions.delay } = this[PRIVATE].options;
+    return getDelay(retryOptions);
+  }
+
+  /**
    * Retrieves the maximum number of times that a request should be retried according to
    * the strategy.
    *
