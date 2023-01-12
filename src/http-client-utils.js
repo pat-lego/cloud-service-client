@@ -56,13 +56,16 @@ async function retryWithStrategies(httpOptions, backend, response, attempts) {
       const delayMultiple = await strategy.getRetryDelayMultiple(retryOptions);
       const maxRetries = await strategy.getMaxRetryCount(retryOptions);
       const delay = await strategy.getRetryDelay(retryOptions);
+      const requestOptions = await strategy.getRetryRequestOptions(
+        retryOptions
+      );
 
       if (attempts >= maxRetries && maxRetries >= 0) {
         return false;
       }
 
       let retryDelay = delay * Math.pow(delayMultiple, attempts - 1);
-      return retryDelay;
+      return { delay: retryDelay, options: requestOptions };
     }
   }
   return false;

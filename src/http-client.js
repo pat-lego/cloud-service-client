@@ -145,21 +145,23 @@ class HttpClient {
     const httpOptions = backend.createHttpOptions(rawOptions);
     const httpResponse = backend.createHttpResponse(rawResponse || {}, error);
 
-    const shouldRetry = await retryWithStrategies(
+    const retryInfo = await retryWithStrategies(
       httpOptions,
       backend,
       httpResponse,
       httpOptions.getRetries() + 1
     );
 
-    if (shouldRetry) {
-      httpOptions.addRetry(httpResponse, shouldRetry);
+    if (retryInfo) {
+      const { delay, options: requestOptions } = retryInfo;
+      httpOptions.addRetry(httpResponse, delay);
       httpResponse.setRequestTime(httpOptions.getRequestTime());
       httpOptions.logInfo(
-        `request is being retried by a retry strategy. waiting ${shouldRetry} for attempt ${httpOptions.getRetries()}.`
+        `request is being retried by a retry strategy. waiting ${delay} for attempt ${httpOptions.getRetries()}.`
       );
 
-      await sleep(shouldRetry);
+      httpOptions.setRequestOptions(requestOptions);
+      await sleep(delay);
       return backend.getRequestConfig(httpOptions);
     }
 

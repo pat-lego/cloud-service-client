@@ -474,6 +474,58 @@ examples of how to use the client. The relevant example code will be flagged wit
       }
     });
 
+    it(`${verifierName}: updated request options strategy`, async () => {
+      let response = await client.put(
+        HOST,
+        {
+          hello: "world!",
+        },
+        { headers: { "Content-Type": "application/json" } }
+      );
+      verifier.verifySuccess(response, 201);
+
+      webserver.addStatusCodes([401, 200]);
+
+      let attemptCount = 1;
+      /*
+      *EXAMPLE*
+      Example of a custom retry strategy, which will modify the request options that should
+      be used for the second retry.
+      */
+      response = await client({
+        url: HOST,
+        cloudClient: {
+          retry: {
+            strategies: [
+              {
+                // function that determines whether to retry a response
+                shouldRetry: (retryInfo) => {
+                  const { attempts, response, options = {} } = retryInfo;
+                  const { status } = response;
+                  const { headers = {} } = options;
+                  const { modified } = headers;
+                  if (attempts === 1) {
+                    assert.strictEqual(status, 401);
+                    assert.ok(!modified);
+                  } else {
+                    assert.strictEqual(modified, "1234");
+                  }
+                  return attempts === 1;
+                },
+                getRequestOptions: () => {
+                  // add a "headers" element after the first retry
+                  return {
+                    headers: { modified: "1234" },
+                  };
+                },
+              },
+            ],
+          },
+        },
+      });
+      verifier.verifySuccess(response);
+    });
+
     it(`${verifierName}: timeout verification`, async () => {
       return assert.rejects(
         async () => {

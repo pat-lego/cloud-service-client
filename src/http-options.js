@@ -122,6 +122,19 @@ class HttpOptions {
   }
 
   /**
+   * Sets the raw HTTP request options upon which the client's options are based. This will merge
+   * the current options with the given options.
+   *
+   * @param {typedefs.RequestOptions} options Raw HTTP request options.
+   */
+  setRequestOptions(options) {
+    this[PRIVATE].options = {
+      ...this[PRIVATE].options,
+      ...options,
+    };
+  }
+
+  /**
    * Records the start time of the most recent request.
    *
    * @param {number} startTime Timestamp, in milliseconds.

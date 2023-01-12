@@ -131,6 +131,23 @@ class RetryStrategy {
       this[PRIVATE].options;
     return getMaxRetries(retryOptions);
   }
+
+  /**
+   * Retrieves the raw options that will be given to the underlying HTTP library on the
+   * next retry.
+   *
+   * @param {RetryOptions} retryOptions Information about the current request, which
+   *  can be used to determine the options.
+   * @returns {Promise<object>} Raw request options.
+   */
+  async getRetryRequestOptions(retryOptions) {
+    const {
+      getRequestOptions = async () => {
+        return {};
+      },
+    } = this[PRIVATE].options;
+    return getRequestOptions(retryOptions);
+  }
 }
 
 module.exports = RetryStrategy;

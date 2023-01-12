@@ -68,7 +68,6 @@ class AxiosBackend extends HttpBackend {
     const { config } = error;
 
     if (!config) {
-      console.log(error);
       throw new Error("Axios error does not have a config");
     }
 

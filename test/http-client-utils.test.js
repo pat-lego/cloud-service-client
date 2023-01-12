@@ -29,7 +29,7 @@ describe("http client utils tests", function () {
     const backend = new HttpBackend();
     const options = new HttpOptions();
     const response = new HttpResponse({ status: 500 });
-    const delay = await retryWithStrategies(options, backend, response, 1);
+    const { delay } = await retryWithStrategies(options, backend, response, 1);
     assert.strictEqual(delay, 1000);
   });
 
@@ -47,7 +47,7 @@ describe("http client utils tests", function () {
       },
     });
     const response = new HttpResponse({ status: 200 });
-    const delay = await retryWithStrategies(options, backend, response, 1);
+    const { delay } = await retryWithStrategies(options, backend, response, 1);
     assert.strictEqual(delay, 1000);
   });
 
@@ -66,7 +66,7 @@ describe("http client utils tests", function () {
       },
     });
     const response = new HttpResponse({ status: 200 });
-    const delay = await retryWithStrategies(options, backend, response, 2);
+    const { delay } = await retryWithStrategies(options, backend, response, 2);
     assert.strictEqual(delay, 10000);
   });
 
@@ -104,7 +104,39 @@ describe("http client utils tests", function () {
       },
     });
     const response = new HttpResponse({ status: 200 });
-    const delay = await retryWithStrategies(options, backend, response, 1);
+    const { delay, options: requestOptions } = await retryWithStrategies(
+      options,
+      backend,
+      response,
+      1
+    );
     assert.strictEqual(delay, 1);
+    assert.deepStrictEqual(requestOptions, {});
+  });
+
+  it("test retry with custom request options strategy", async function () {
+    const backend = new HttpBackend();
+    const options = new HttpOptions({
+      cloudClient: {
+        retry: {
+          strategies: [
+            {
+              shouldRetry: () => true,
+              getRequestOptions: () => {
+                return { hello: "world!" };
+              },
+            },
+          ],
+        },
+      },
+    });
+    const response = new HttpResponse({ status: 200 });
+    const { options: requestOptions } = await retryWithStrategies(
+      options,
+      backend,
+      response,
+      1
+    );
+    assert.deepStrictEqual(requestOptions, { hello: "world!" });
   });
 });

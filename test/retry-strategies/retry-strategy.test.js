@@ -44,4 +44,10 @@ describe("retry strategy tests", function () {
     const retryDelay = await retryStrategy.getRetryDelay({ delay: 1000 });
     assert.strictEqual(retryDelay, 500);
   });
+
+  it("test retry strategy request options default", async function () {
+    const retryStrategy = new RetryStrategy();
+    const requestOptions = await retryStrategy.getRetryRequestOptions();
+    assert.deepStrictEqual(requestOptions, {});
+  });
 });

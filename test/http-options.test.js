@@ -506,4 +506,15 @@ describe("HTTP options tests", function () {
       },
     });
   });
+
+  it("test set request options", function () {
+    const options = new HttpOptions({});
+    options.setRequestOptions({ hello: "world!" });
+    assert.deepStrictEqual(options.getOptions(), { hello: "world!" });
+    options.setRequestOptions({ hello: "goodbye!", foo: "bar" });
+    assert.deepStrictEqual(options.getOptions(), {
+      hello: "goodbye!",
+      foo: "bar",
+    });
+  });
 });
