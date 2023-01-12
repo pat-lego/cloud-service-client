@@ -1,6 +1,7 @@
 # Node.JS Cloud Service Client
 
 [![build status](https://github.com/adobe/cloud-service-client/actions/workflows/node.js.yml/badge.svg)](https://github.com/adobe/cloud-service-client/actions/workflows/node.js.yml)
+[![Node version](https://img.shields.io/npm/v/@adobe/cloud-service-client)](https://www.npmjs.com/package/@adobe/cloud-service-client/)
 
 
 This client can be used to submit HTTP requests in javascript. You may ask, "why use this client instead of one of the more popular libraries?" 
