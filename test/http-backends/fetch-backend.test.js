@@ -110,4 +110,11 @@ describe("fetch backend tests", function () {
     assert.ok(options);
     assert.strictEqual(options.constructor.name, "FetchHttpOptions");
   });
+
+  it("test create http response", function () {
+    const backend = new FetchBackend({}, fetch);
+    const response = backend.createHttpResponse({});
+    assert.ok(response);
+    assert.strictEqual(response.constructor.name, "FetchHttpResponse");
+  });
 });

@@ -20,6 +20,30 @@ const HttpResponse = require("./http-response");
 const HttpBackend = require("./http-backends/http-backend");
 
 /**
+ * Retrieves the Retry-After header value from an HTTP response.
+ *
+ * @param {HttpResponse} response Response whose information will be used.
+ * @returns {number} The number of milliseconds to wait before retrying, as specified
+ *  in the response. Will be falsy if no retry after information is present.
+ */
+function getRetryAfter(response) {
+  const headers = response.getHeaders();
+  if (!headers) {
+    return 0;
+  }
+  const permutations = ["retry-after", "Retry-After"];
+  let retryAfterSeconds = 0;
+  for (let i = 0; i < permutations.length; i += 1) {
+    if (headers[permutations[i]]) {
+      retryAfterSeconds = parseInt(headers[permutations[i]], 10);
+      break;
+    }
+  }
+
+  return retryAfterSeconds * 1000;
+}
+
+/**
  * Uses the strategies defined in HTTP options to determine whether a request needs to
  * be retried based on its response.
  *
@@ -35,6 +59,16 @@ async function retryWithStrategies(httpOptions, backend, response, attempts) {
   const retryStrategies = httpOptions.getRetryStrategies();
   const options = await backend.getRequestConfig(httpOptions);
   const rawResponse = response.getRawResponse();
+  let defaultDelay = httpOptions.getRetryDelay();
+  let defaultMultiple = httpOptions.getRetryDelayMultiple();
+  const retryAfter = getRetryAfter(response);
+
+  if (retryAfter) {
+    // Retry-After header should override any settings provided
+    defaultDelay = retryAfter;
+    defaultMultiple = 1;
+  }
+
   for (let i = 0; i < retryStrategies.length; i++) {
     const strategy = retryStrategies[i];
     const retryOptions = {
@@ -43,8 +77,8 @@ async function retryWithStrategies(httpOptions, backend, response, attempts) {
       response: rawResponse,
       attempts,
       maxAttempts: httpOptions.getMaxRetries(),
-      delayMultiple: httpOptions.getRetryDelayMultiple(),
-      delay: httpOptions.getRetryDelay(),
+      delayMultiple: defaultMultiple,
+      delay: defaultDelay,
     };
     const shouldRetry = await strategy.shouldRetry(retryOptions);
     if (strategy.constructor) {
@@ -72,5 +106,6 @@ async function retryWithStrategies(httpOptions, backend, response, attempts) {
 }
 
 module.exports = {
+  getRetryAfter,
   retryWithStrategies,
 };

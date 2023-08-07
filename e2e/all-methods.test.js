@@ -557,5 +557,28 @@ examples of how to use the client. The relevant example code will be flagged wit
         }
       );
     });
+
+    it(`${verifierName}: Retry-After header`, async () => {
+      webserver.addResponses([
+        {
+          statusCode: 503,
+          headers: {
+            "Retry-After": 3,
+          },
+        },
+        {
+          statusCode: 200,
+          body: "Testing",
+        },
+      ]);
+      const response = await client({
+        url: HOST,
+      });
+      verifier.verifySuccess(response);
+      const { options = {} } = response.cloudClient;
+      const { cloudClient = {} } = options;
+      assert.strictEqual(cloudClient.retries, 1);
+      assert.strictEqual(cloudClient.retryWait, 3000);
+    });
   });
 });

@@ -13,6 +13,7 @@ const { AbortController } = require("node-abort-controller");
 
 const HttpBackend = require("./http-backend");
 const FetchHttpOptions = require("./fetch-http-options");
+const FetchHttpResponse = require("./fetch-http-response");
 const { parseMultipleFetchSetCookieHeaders } = require("../http-utils");
 const typedefs = require("../typedefs");
 
@@ -71,6 +72,10 @@ class FetchBackend extends HttpBackend {
 
   createHttpOptions(options) {
     return new FetchHttpOptions(options, this.getClientOptions());
+  }
+
+  createHttpResponse(response, error) {
+    return new FetchHttpResponse(response, error);
   }
 
   /**

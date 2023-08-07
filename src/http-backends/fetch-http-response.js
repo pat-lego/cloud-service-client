@@ -14,8 +14,9 @@ const HttpResponse = require("../http-response");
 class FetchHttpResponse extends HttpResponse {
   getHeaders() {
     const { headers } = this.getRawResponse();
-    const headerLookup = {};
+    let headerLookup;
     if (headers && headers.keys) {
+      headerLookup = {};
       for (const headerName of headers.keys()) {
         headerLookup[headerName] = headers.get(headerName);
       }

@@ -11,7 +11,10 @@ governing permissions and limitations under the License.
 
 const assert = require("assert");
 
-const { retryWithStrategies } = require("../src/http-client-utils");
+const {
+  retryWithStrategies,
+  getRetryAfter,
+} = require("../src/http-client-utils");
 const HttpBackend = require("../src/http-backends/http-backend");
 const HttpOptions = require("../src/http-options");
 const HttpResponse = require("../src/http-response");
@@ -20,7 +23,7 @@ describe("http client utils tests", function () {
   it("test retry with no strategies", async function () {
     const backend = new HttpBackend();
     const options = new HttpOptions();
-    const response = new HttpResponse({ status: 200 });
+    const response = new HttpResponse({ status: 200, headers: {} });
     const delay = await retryWithStrategies(options, backend, response, 1);
     assert.ok(!delay);
   });
@@ -28,7 +31,7 @@ describe("http client utils tests", function () {
   it("test retry with 500 error", async function () {
     const backend = new HttpBackend();
     const options = new HttpOptions();
-    const response = new HttpResponse({ status: 500 });
+    const response = new HttpResponse({ status: 500, headers: {} });
     const { delay } = await retryWithStrategies(options, backend, response, 1);
     assert.strictEqual(delay, 1000);
   });
@@ -46,7 +49,7 @@ describe("http client utils tests", function () {
         },
       },
     });
-    const response = new HttpResponse({ status: 200 });
+    const response = new HttpResponse({ status: 200, headers: {} });
     const { delay } = await retryWithStrategies(options, backend, response, 1);
     assert.strictEqual(delay, 1000);
   });
@@ -65,7 +68,7 @@ describe("http client utils tests", function () {
         },
       },
     });
-    const response = new HttpResponse({ status: 200 });
+    const response = new HttpResponse({ status: 200, headers: {} });
     const { delay } = await retryWithStrategies(options, backend, response, 2);
     assert.strictEqual(delay, 10000);
   });
@@ -84,7 +87,7 @@ describe("http client utils tests", function () {
         },
       },
     });
-    const response = new HttpResponse({ status: 200 });
+    const response = new HttpResponse({ status: 200, headers: {} });
     const delay = await retryWithStrategies(options, backend, response, 2);
     assert.strictEqual(delay, false);
   });
@@ -103,7 +106,7 @@ describe("http client utils tests", function () {
         },
       },
     });
-    const response = new HttpResponse({ status: 200 });
+    const response = new HttpResponse({ status: 200, headers: {} });
     const { delay, options: requestOptions } = await retryWithStrategies(
       options,
       backend,
@@ -130,7 +133,7 @@ describe("http client utils tests", function () {
         },
       },
     });
-    const response = new HttpResponse({ status: 200 });
+    const response = new HttpResponse({ status: 200, headers: {} });
     const { options: requestOptions } = await retryWithStrategies(
       options,
       backend,
@@ -138,5 +141,60 @@ describe("http client utils tests", function () {
       1
     );
     assert.deepStrictEqual(requestOptions, { hello: "world!" });
+  });
+
+  it("test retry with Retry-After header", async function () {
+    const backend = new HttpBackend();
+    const options = new HttpOptions({
+      cloudClient: {
+        retry: {
+          delay: 1500,
+          delayMultiple: 5,
+          strategies: [
+            {
+              shouldRetry: (info) => {
+                assert.strictEqual(info.delayMultiple, 1);
+                assert.strictEqual(info.delay, 5000);
+                return true;
+              },
+              getRequestOptions: () => {
+                return { hello: "world!" };
+              },
+            },
+          ],
+        },
+      },
+    });
+    const response = new HttpResponse({
+      status: 200,
+      headers: {
+        "Retry-After": "5",
+      },
+    });
+    const { options: requestOptions } = await retryWithStrategies(
+      options,
+      backend,
+      response,
+      1
+    );
+    assert.deepStrictEqual(requestOptions, { hello: "world!" });
+  });
+
+  it("test get retry after", () => {
+    let response = new HttpResponse({ status: 200 });
+    // no headers
+    assert.ok(!getRetryAfter(response));
+    // no retry-after header
+    response = new HttpResponse({ status: 200, headers: {} });
+    assert.ok(!getRetryAfter(response));
+    // retry-after header
+    response = new HttpResponse({ status: 200, headers: { "retry-after": 1 } });
+    assert.strictEqual(getRetryAfter(response), 1000);
+    // Retry-After header
+    response = new HttpResponse({
+      status: 200,
+      headers: { "Retry-After": "3" },
+    });
+    assert.strictEqual(getRetryAfter(response), 3000);
   });
 });

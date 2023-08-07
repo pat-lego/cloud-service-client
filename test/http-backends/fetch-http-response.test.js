@@ -19,13 +19,13 @@ describe("fetch http response tests", function () {
   it("test get headers", function () {
     let response = new FetchHttpResponse({});
     let lookup = response.getHeaders();
-    assert.strictEqual(Object.keys(lookup).length, 0);
+    assert.strictEqual(lookup, undefined);
 
     response = new FetchHttpResponse({
       header: "value",
     });
     lookup = response.getHeaders();
-    assert.strictEqual(Object.keys(lookup).length, 0);
+    assert.strictEqual(lookup, undefined);
 
     response = new FetchHttpResponse({
       headers: {
