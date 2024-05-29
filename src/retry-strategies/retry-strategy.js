@@ -59,7 +59,6 @@ const PRIVATE = Symbol("PRIVATE");
 class RetryStrategy {
   /**
    * Constructs a new strategy that uses the given options for its functionality.
-   *
    * @param {StrategyOptions} [strategyOptions] Options for controlling how the
    *  strategy behaves.
    */
@@ -78,7 +77,6 @@ class RetryStrategy {
    *
    * One thing to note is that this method could be called for both failed _and_
    * successful requests. Be sure to handle either case accordingly.
-   *
    * @param {RetryOptions} retryOptions Information about the current request, which
    *  can be used to determine whether a retry is in order.
    * @returns {Promise<boolean>} True if the request should be retried, false otherwise.
@@ -93,7 +91,6 @@ class RetryStrategy {
    * Retrieves the value by which the configured retry delay should be multiplied to
    * determine the amount of time the client should wait before making another retry
    * attempt.
-   *
    * @param {RetryOptions} retryOptions Information about the current request, which
    *  can be used to determine the multiple.
    * @returns {Promise<number>} Delay multiple.
@@ -108,7 +105,6 @@ class RetryStrategy {
    * Retrieves the amount of time, in milliseconds, that the retry should be delayed. Note
    * that the retry delay multiple will be used to expentially increase this delay with
    * each retry.
-   *
    * @param {RetryOptions} retryOptions Information about the current request, which
    *  can be used to determine the delay.
    * @returns {Promise<number>} Retry delay.
@@ -121,7 +117,6 @@ class RetryStrategy {
   /**
    * Retrieves the maximum number of times that a request should be retried according to
    * the strategy.
-   *
    * @param {RetryOptions} retryOptions Information about the current request, which
    *  can be used to determine the count.
    * @returns {Promise<number>} Retry count.
@@ -135,7 +130,6 @@ class RetryStrategy {
   /**
    * Retrieves the raw options that will be given to the underlying HTTP library on the
    * next retry.
-   *
    * @param {RetryOptions} retryOptions Information about the current request, which
    *  can be used to determine the options.
    * @returns {Promise<object>} Raw request options.

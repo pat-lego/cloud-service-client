@@ -42,7 +42,6 @@ class HttpOptions {
   /**
    * Constructs a new instance of the options class that uses the given raw set
    * of options.
-   *
    * @param {typedefs.RequestOptions} [options] Options as passed in by a consumer.
    * @param {typedefs.ClientOptions} [clientOptions] Client-level options as
    *  provided when the client was created.
@@ -56,7 +55,6 @@ class HttpOptions {
 
   /**
    * Retrieves the URL to be requested by the client.
-   *
    * @returns {string} An HTTP URL.
    */
   getUrl() {
@@ -66,7 +64,6 @@ class HttpOptions {
 
   /**
    * Retrieves the method to be used in a request.
-   *
    * @returns {string} An HTTP method.
    */
   getMethod() {
@@ -76,7 +73,6 @@ class HttpOptions {
 
   /**
    * Retrieves the number of times that the request has been retried so far.
-   *
    * @returns {number} Retry count.
    */
   getRetries() {
@@ -87,7 +83,6 @@ class HttpOptions {
   /**
    * Retrieves the total amount of time, in milliseconds, that the request has spent
    * waiting between retries.
-   *
    * @returns {number} Timespan in milliseconds.
    */
   getRetryWait() {
@@ -97,7 +92,6 @@ class HttpOptions {
 
   /**
    * Retrieves the responses that qualified for retries for the current request.
-   *
    * @returns {Array<*>} Array of responses registered with the options.
    */
   getRetryResponses() {
@@ -108,7 +102,6 @@ class HttpOptions {
   /**
    * Retrieves the amount of time, in milliseconds, that it took for the most recent
    * request's response to be provided by the underlying HTTP backend.
-   *
    * @returns {number} Timespan in milliseconds.
    */
   getRequestTime() {
@@ -124,7 +117,6 @@ class HttpOptions {
   /**
    * Sets the raw HTTP request options upon which the client's options are based. This will merge
    * the current options with the given options.
-   *
    * @param {typedefs.RequestOptions} options Raw HTTP request options.
    */
   setRequestOptions(options) {
@@ -136,7 +128,6 @@ class HttpOptions {
 
   /**
    * Records the start time of the most recent request.
-   *
    * @param {number} startTime Timestamp, in milliseconds.
    */
   setStartTime(startTime) {
@@ -148,7 +139,6 @@ class HttpOptions {
 
   /**
    * Records the end time of the most recent request.
-   *
    * @param {number} endTime Timestamp, in milliseconds.
    */
   setEndTime(endTime) {
@@ -159,7 +149,6 @@ class HttpOptions {
    * Adds information about a retry to the options. The method will add the given response
    * information to the options' retryResponses, increment the options' retries count,
    * and add the given delay to the options' retryWait value.
-   *
    * @param {HttpResponse} response Response to add to the option's retryResponses.
    * @param {number} retryDelay Timespan, in milliseconds, to add to the options' retryWait.
    */
@@ -185,7 +174,6 @@ class HttpOptions {
    * Each strategy is responsible for examining a response and determining whether
    * it warrants a retry. The client will initiate a retry based on the first
    * strategy that indicates a retry is necessary.
-   *
    * @returns {Array<typedefs.RetryStrategy>} Strategies to use to initiate retries.
    */
   getRetryStrategies() {
@@ -224,7 +212,6 @@ class HttpOptions {
    * the total delay based on the number of retry attempts.
    *
    * Default is 1000.
-   *
    * @returns {number} Time span in milliseconds.
    */
   getRetryDelay() {
@@ -244,7 +231,6 @@ class HttpOptions {
    * value.
    *
    * Default is 2.
-   *
    * @returns {number} Delay multiplier.
    */
   getRetryDelayMultiple() {
@@ -261,7 +247,6 @@ class HttpOptions {
    * up to the strategy to honor it.
    *
    * Default is 3.
-   *
    * @returns {number} Number of retries.
    */
   getMaxRetries() {
@@ -272,7 +257,6 @@ class HttpOptions {
   /**
    * Retrieves the timeout value, in milliseconds, as specified in the client's
    * options.
-   *
    * @returns {number} Timespan in milliseconds.
    */
   getTimeout() {
@@ -282,7 +266,6 @@ class HttpOptions {
 
   /**
    * Retrieves the cookies that the options are currently using.
-   *
    * @returns {Promise<CookieJar>} Cookie jar containing the cookies for
    *  the options.
    */
@@ -325,7 +308,6 @@ class HttpOptions {
    * Sets additional cookies that will be included in the HTTP options. Note that only
    * the options will only include cookies that have not already been explicitly
    * specified in the options' cookie header.
-   *
    * @param {Array<Cookie>} cookies Cookies to be added to the options.
    */
   setAdditionalCookies(cookies) {
@@ -335,7 +317,6 @@ class HttpOptions {
   /**
    * Converts the raw options into a set of configurations that can be used to submit
    * an HTTP request.
-   *
    * @returns {Promise<typedefs.RequestOptions>} Will be resolved with the configuration that can be
    *  used in an HTTP request.
    */
@@ -393,7 +374,6 @@ class HttpOptions {
 
   /**
    * Logs a message at the debug level using the logger provided in the options.
-   *
    * @param {Array<any>} theArguments Arguments to use to format the message.
    */
   logDebug(...theArguments) {
@@ -402,7 +382,6 @@ class HttpOptions {
 
   /**
    * Logs a message at the info level using the logger provided in the options.
-   *
    * @param {Array<any>} theArguments Arguments to use to format the message.
    */
   logInfo(...theArguments) {
@@ -411,7 +390,6 @@ class HttpOptions {
 
   /**
    * Logs a message at the warn level using the logger provided in the options.
-   *
    * @param {Array<any>} theArguments Arguments to use to format the message.
    */
   logWarn(...theArguments) {
@@ -420,7 +398,6 @@ class HttpOptions {
 
   /**
    * Logs a message at the error level using the logger provided in the options.
-   *
    * @param {Array<any>} theArguments Arguments to use to format the message.
    */
   logError(...theArguments) {
@@ -431,7 +408,6 @@ class HttpOptions {
    * Retrieves the request ID that the options are currently using. Will use the
    * x-request-id header if provided in the initial options; will generate its
    * own if none provided.
-   *
    * @returns {string} The request ID for the options.
    */
   getRequestId() {
@@ -444,7 +420,6 @@ class HttpOptions {
 
   /**
    * Retrieves the full set of options as provided in the class constructor.
-   *
    * @returns {typedefs.RequestOptions} Raw HTTP config as passed into a request.
    */
   getOptions() {
@@ -455,7 +430,6 @@ class HttpOptions {
   /**
    * Retrieves the HTTP client-specific options from the raw HTTP config
    * as passed into the class constructor.
-   *
    * @returns {typedefs.ClientRequestOptions} Options specific to the HTTP client.
    */
   getClientOptions() {
@@ -468,7 +442,6 @@ class HttpOptions {
    * Adds values to the client-specific options of the HTTP config. The
    * operation is additive, so new values will be added and existing
    * values overwritten.
-   *
    * @param {typedefs.ClientRequestOptions} options Values to add.
    */
   addClientOptions(options) {
@@ -484,7 +457,6 @@ class HttpOptions {
    * request options are already specified. Note the options that aren't already
    * present in the http options will be added, but duplicate options will
    * _not_ be overwritten.
-   *
    * @param {typedefs.ClientRequestOptions} options Client-specific request options
    *  to merge.
    */
@@ -517,7 +489,6 @@ class HttpOptions {
 
   /**
    * Converts the options to a JSON representation.
-   *
    * @returns {object} Simple object representing the options.
    */
   toJSON() {
@@ -544,7 +515,6 @@ class HttpOptions {
 
   /**
    * Converts the options to a stringified version of its JSON.
-   *
    * @returns {string} The options' JSON as a string.
    */
   toString() {
@@ -553,7 +523,6 @@ class HttpOptions {
 
   /**
    * Retrieves the retry option element of the HTTP options.
-   *
    * @returns {typedefs.RetryOptions} Retry information from the options.
    */
   [_getRetryOptions]() {
@@ -565,7 +534,6 @@ class HttpOptions {
    * Builds a cookie lookup for a given cookie jar. The lookup's keys will
    * be the key property of all cookies in the lookup. Values will be the
    * Cookie representing the corresponding key.
-   *
    * @param {CookieJar} cookieJar Jar whose cookies will be used.
    * @returns {Promise<object>} Simple javascript object.
    */
@@ -577,7 +545,6 @@ class HttpOptions {
   /**
    * Logs a message using the options' logger at the given level. Includes helpful information
    * specific to the options in the message.
-   *
    * @param {string} logMethod Name of the method from the logger to use.
    * @param {Array} theArguments Arguments that will be applied to the log method.
    */

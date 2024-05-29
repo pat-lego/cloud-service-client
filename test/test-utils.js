@@ -18,7 +18,6 @@ const Path = require("path");
  * Imports a file from the HTTP client's source by its relative path from the root
  * source directory. For example, assuming the desired import is "src/http-client",
  * the correct usage of the method would be "importFile('http-client')".
- *
  * @param {string} filePath Path of the file to import.
  * @returns {*} Result of the import.
  */

@@ -25,7 +25,6 @@ const PRIVATE = Symbol("PRIVATE");
 class HttpBackend {
   /**
    * Constructs a new backend that will use the given dependencies.
-   *
    * @param {typedefs.ClientOptions} options Options for controlling how the backend behaves.
    */
   constructor(options = {}) {
@@ -36,7 +35,6 @@ class HttpBackend {
 
   /**
    * Retrieves the client-level options, as provided in the backend's constructor.
-   *
    * @returns {typedefs.ClientOptions} Client options.
    */
   getClientOptions() {
@@ -47,7 +45,6 @@ class HttpBackend {
   /**
    * Retrieves a value indicating whether or not the backend should handle set-cookie
    * headers.
-   *
    * @returns {boolean} True to handle cookies, false otherwise;
    */
   shouldHandleCookies() {
@@ -63,7 +60,6 @@ class HttpBackend {
    *
    * Each of the given interceptor's methods will be registered with the backend so
    * that they're called at the correct time.
-   *
    * @param {HttpBackendInterceptor} interceptor Object with which the underlying HTTP
    *  library's interceptors should be registered.
    * @returns {*} The object that should be used as the backend's export.
@@ -75,7 +71,6 @@ class HttpBackend {
   /**
    * Given the set of options provided to the client, performs any backend-specific
    * manipulation of the options before they are given to the backend.
-   *
    * @param {HttpOptions} options Options as provided to the client.
    * @returns {Promise<*>} The options that should be given to the backend.
    */
@@ -86,7 +81,6 @@ class HttpBackend {
   /**
    * Uses the underlying HTTP library to submit an HTTP request and generate a
    * response.
-   *
    * @param {*} options Configuration as provided by the backend's getRequestConfig()
    *  method.
    * @returns {Promise<*>} Will resolve when the request's HTTP response is available.
@@ -102,7 +96,6 @@ class HttpBackend {
    * that generated the error.
    *
    * Will return a falsy error if there is no response associated with the error.
-   *
    * @param {HttpOptions} httpOptions Options that generated the error.
    * @param {*} error The error that was encountered while submitting the request.
    * @returns {*} The raw response containing information about the error, or
@@ -115,7 +108,6 @@ class HttpBackend {
   /**
    * Creates an instance of the client's HTTP response that is most appropriate
    * for the backend.
-   *
    * @param {*} rawResponse Response as provided by the underlying backend.
    * @param {*} [error] The error that was generated when the backend submitted
    *  the request, if applicable.
@@ -128,7 +120,6 @@ class HttpBackend {
   /**
    * Creates an instance of the client's HTTP options that is most appropriate
    * for the backend.
-   *
    * @param {*} options Raw options as received by the client.
    * @returns {HttpOptions} Client options for the request.
    */
@@ -140,7 +131,6 @@ class HttpBackend {
   /**
    * Retrieves the cookies that should be set according to an HTTP response from
    * the backend.
-   *
    * @param {*} response An HTTP response as provided by a request sent using
    *  the backend.
    * @returns {Array<string>} List of unparsed HTTP cookie definitions.

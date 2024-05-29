@@ -20,7 +20,6 @@ const { Cookie } = require("tough-cookie");
 /**
  * Converts a simple object to its JSON representation. Ensures that certain
  * types are emitted from the JSON.
- *
  * @param {object} toConvert Simple object to convert.
  * @returns {object} Simple object containing only simple types from the
  *  input.
@@ -56,7 +55,6 @@ function objectToJson(toConvert) {
  *
  * WARNING: this method makes assumptions about the structure of cookie
  * values. It may have unintended side-effects if used on other headers.
- *
  * @param {string} headerValue Header value, which might contain multiple
  *  values.
  * @returns {Array} Each of the values provided for a single header.
@@ -98,7 +96,6 @@ function parseMultipleFetchSetCookieHeaders(headerValue) {
 
 /**
  * Redacts certain headers so that sensitive values are removed.
- *
  * @param {object} headers Headers to redact.
  * @returns {object} Redacted version of the headers.
  */
@@ -116,7 +113,6 @@ function redactHeaders(headers) {
 /**
  * Parses a raw Cookie header value and converts it to an array of tough-cookie
  * Cookie objects.
- *
  * @param {string} headerValue Raw value of an HTTP "Cookie" header.
  * @returns {Array<Cookie>} List of Cookie objects as parsed from the header.
  */
@@ -128,7 +124,6 @@ function parseCookieHeader(headerValue) {
  * Builds a cookie lookup for a given list of cookies. The lookup's keys will
  * be the key property of all cookies in the lookup. Values will be the
  * Cookie representing the corresponding key.
- *
  * @param {Array<Cookie>} cookieList Cookies to be used.
  * @returns {object} Simple javascript object.
  */

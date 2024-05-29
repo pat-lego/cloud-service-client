@@ -39,7 +39,6 @@ class HttpClient {
   /**
    * Sets the default global options that will be applied to all requests that go through
    * the client.
-   *
    * @param {typedefs.ClientRequestOptions} options Global options to add to all requests.
    */
   setGlobalOptions(options) {
@@ -49,7 +48,6 @@ class HttpClient {
   /**
    * Retrieves the default global options that will be applied to all requests that go through
    * the client.
-   *
    * @returns {typedefs.ClientRequestOptions} Global options to add to all requests.
    */
   getGlobalOptions() {
@@ -60,7 +58,6 @@ class HttpClient {
   /**
    * Initiates a client request. Will provide a potentially modified set of HTTP options that
    * should be used when actually submitting the request.
-   *
    * @param {HttpBackend} backend Backend handling the current request.
    * @param {typedefs.RequestOptions} options Raw options as received from the consumer of the client.
    * @returns {Promise<typedefs.RequestOptions>} Resolves with the options that should be given to the
@@ -87,7 +84,6 @@ class HttpClient {
   /**
    * Instructs the client that an HTTP request has finished, and that it has
    * a corresponding response.
-   *
    * @param {HttpBackend} backend Underlying backend processing the request.
    * @param {typedefs.RequestOptions} options Raw options that initiated the request.
    * @param {*} response Response as provided by the underlying backend.
@@ -107,7 +103,6 @@ class HttpClient {
   /**
    * Instructs the client that an HTTP request has finished, but it generated
    * an error.
-   *
    * @param {HttpBackend} backend Underlying backend processing the request.
    * @param {typedefs.RequestOptions} options Raw options that initiated the request.
    * @param {*} error Error as provided by the underlying backend.
@@ -130,7 +125,6 @@ class HttpClient {
   /**
    * Examines the response of an HTTP request and determines whether it qualifies for
    * a retry based on the retry strategies registered with the client.
-   *
    * @param {HttpBackend} backend Underlying backend that's currently processing the
    *  request.
    * @param {typedefs.RequestOptions} rawOptions Options that were used to generate the response.
@@ -170,7 +164,6 @@ class HttpClient {
 
   /**
    * Retrieves the final response that the client will provide to the consumer.
-   *
    * @param {HttpBackend} backend Backend processing the current request.
    * @param {typedefs.RequestOptions} config Configuration that generated the client's response.
    * @param {*} [rawResponse] If applicable, raw response as provided by the underlying backend.
@@ -188,7 +181,6 @@ class HttpClient {
 
   /**
    * Retrieves the final error that the client will provide to the consumer.
-   *
    * @param {HttpBackend} backend Backend processing the current request.
    * @param {typedefs.RequestOptions} config Configuration that generated the client's response.
    * @param {*} error Error as provided by the underlying backend.
@@ -205,7 +197,6 @@ class HttpClient {
 
   /**
    * Clears the cookies that the client is currently using.
-   *
    * @returns {Promise} Resolves when the client's cookies have been cleared.
    */
   clearCookies() {
@@ -216,7 +207,6 @@ class HttpClient {
   /**
    * Sets cookies in the client's internal jar. The operation is additive, so new cookies
    * will be added and existing cookies will be replaced.
-   *
    * @param {string} url Full URL to which the cookies will apply.
    * @param {Array<string>} cookies List of raw cookie values to be added.
    * @returns {Promise} Resolves when the cookies have been set.
@@ -231,7 +221,6 @@ class HttpClient {
 
   /**
    * Retrieves the client's cookies from its internal jar.
-   *
    * @param {string} url Full URL whose cookies should be retrieved.
    * @returns {Promise<Array<string>>} List of raw cookie values.
    */
@@ -243,7 +232,6 @@ class HttpClient {
   /**
    * Updates the client's current cookies with set-cookie header of a given
    * response.
-   *
    * @param {HttpOptions} options Options to use to submit the request.
    * @param {HttpBackend} backend Backend currently processing the request.
    * @param {HttpResponse} response HTTP response of a request. set-cookie header from
@@ -268,7 +256,6 @@ class HttpClient {
   /**
    * Retrieves the cookies that the client has received from the set-cookie headers
    * of responses it has made.
-   *
    * @param {string} url Url whose cookies should be retrieved.
    * @returns {Promise<Array<Cookie>>} Additional cookies from the client's cookie
    *  jar.

@@ -26,7 +26,6 @@ const URL = require("url");
 /**
  * Retrieves the data that has been created in the webserver for the url in the given request.
  * Will throw a 404 error if no data has been created at the url.
- *
  * @param {express.HttpRequest} req Request as provided by express.
  * @returns {*} The data that was registered for the url.
  */
@@ -42,7 +41,6 @@ function getData(req) {
 
 /**
  * Sets the data in the webserver for the url in the given request.
- *
  * @param {express.HttpRequest} req Request as provided by express.
  */
 function setData(req) {
@@ -54,7 +52,6 @@ function setData(req) {
 /**
  * Deletes the data in the webserver for the url in the given request. Will
  * throw a 404 error if no data has been created at the url.
- *
  * @param {express.HttpRequest} req Request as provided by express.
  */
 function deleteData(req) {
@@ -71,7 +68,6 @@ function deleteData(req) {
  * Handles an incoming request by performing common operations on the request, such as
  * logging information about the request, overriding normal behavior using registered
  * requests, and handling errors.
- *
  * @param {express.HttpRequest} req Request as provided by express.
  * @param {express.HttpResponse} res Response as provided by express.
  * @param {Function} toRun Function to run to handle the request, assuming the
@@ -100,7 +96,6 @@ function handleRequest(req, res, toRun) {
 
 /**
  * Logs information about the request with the webserver.
- *
  * @param {express.HttpRequest} req Request as provided by express.
  */
 function logRequest(req) {
@@ -110,7 +105,6 @@ function logRequest(req) {
 
 /**
  * Starts the local webserver and returns information about the host where it's running.
- *
  * @returns {string} URL of the host where the server is listening.
  */
 module.exports = function () {
@@ -189,7 +183,6 @@ module.exports = function () {
 
 /**
  * Registers a raw response that should be returned by the web server on the next request(s).
- *
  * @param {Array<RequestInfo>} responsesToAdd Responses for the server to return.
  */
 function addResponses(responsesToAdd) {
@@ -201,7 +194,6 @@ module.exports.addResponses = addResponses;
 /**
  * Convenience method that registers the status codes (only) that should be returned by the web server
  * on the next request(s).
- *
  * @param {Array<number>} codes Status codes for the server to return.
  */
 module.exports.addStatusCodes = (codes) => {
@@ -214,7 +206,6 @@ module.exports.addStatusCodes = (codes) => {
 
 /**
  * Retrieves all requests that have been received by the server.
- *
  * @returns {Array<express.HttpRequest>} Raw express requests.
  */
 module.exports.getRequests = () => {

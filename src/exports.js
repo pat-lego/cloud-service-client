@@ -21,7 +21,6 @@ const httpClient = new HttpClient();
  * Sets the default global, client-specific request options that will be applied to all
  * requests that go through the client. These options will be merged with options that
  * are provided at the time of a request.
- *
  * @param {typedefs.ClientRequestOptions} options Global options to add to all requests.
  * @returns {void}
  */
@@ -30,7 +29,6 @@ module.exports.setGlobalOptions = (options) =>
 
 /**
  * Clears the cookies that the client is currently using.
- *
  * @returns {Promise} Resolves when the cookies have been cleared.
  */
 module.exports.clearCookies = () => httpClient.clearCookies();
@@ -42,9 +40,8 @@ const backendInterceptor = new HttpBackendInterceptor(httpClient);
  * functionality. Note that this function will use axios.create() to ensure
  * that the global axios instance isn't modified, so the client's
  * functionality will only apply to the returned axios instance.
- *
  * @param {*} axios Axios import to extend.
- * @param {typedefs.ClientOptions} [options={}] Options that control how
+ * @param {typedefs.ClientOptions} [options] Options that control how
  *  the client will behave.
  * @returns {*} Axios, which can be used to submit HTTP requests as usual.
  */
@@ -61,9 +58,8 @@ module.exports.axiosClient = (axios, options = {}) => {
  * functionality. Note that this function will ensure that the global axios
  * instance isn't modified, so the client's functionality will only apply
  * to the returned fetch function.
- *
  * @param {*} fetch Fetch import to extend.
- * @param {typedefs.ClientOptions} [options={}] Options that control how
+ * @param {typedefs.ClientOptions} [options] Options that control how
  *  the client will behave.
  * @returns {*} Fetch, which can be used to submit HTTP requests as usual.
  */

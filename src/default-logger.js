@@ -21,7 +21,6 @@ class Logger {
   /**
    * Prepends a given value to a log message, which is assumed to be the first item
    * in an array of arguments to a log function.
-   *
    * @param {string} toPrepend Value to prepend.
    * @param {Array} logArgs Array of arguments intended for a log function.
    * @returns {Array} Modified set of log arguments.
@@ -39,7 +38,6 @@ class Logger {
    * is set to DEBUG.
    *
    * All arguments supplied to the method will be passed through to console.log.
-   *
    * @param {Array<any>} theArguments Arguments to pass to console.log().
    */
   debug(...theArguments) {
@@ -52,7 +50,6 @@ class Logger {
    * is set to DEBUG or INFO.
    *
    * All arguments supplied to the method will be passed through to console.log.
-   *
    * @param {Array<any>} theArguments Arguments to pass to console.log().
    */
   info(...theArguments) {
@@ -65,7 +62,6 @@ class Logger {
    * is set to DEBUG, INFO, or WARN.
    *
    * All arguments supplied to the method will be passed through to console.log.
-   *
    * @param {Array<any>} theArguments Arguments to pass to console.log().
    */
   warn(...theArguments) {
@@ -78,7 +74,6 @@ class Logger {
    * is set to DEBUG, INFO, WARN, or ERROR.
    *
    * All arguments supplied to the method will be passed through to console.log.
-   *
    * @param {Array<any>} theArguments Arguments to pass to console.log().
    */
   error(...theArguments) {
@@ -92,7 +87,6 @@ class Logger {
 
   /**
    * Uses console.log() to write a message at the given level.
-   *
    * @param {string} level Log level to include in the message.
    * @param {Array} theArguments All arguments that should be included in the call
    *  to console.log().

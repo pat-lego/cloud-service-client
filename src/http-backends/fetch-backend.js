@@ -28,7 +28,6 @@ class FetchBackend extends HttpBackend {
   /**
    * Constructs a new instance of the fetch backend, based on a given instance of
    * the fetch library.
-   *
    * @param {typedefs.ClientOptions} options Options for controlling how the backend behaves.
    * @param {*} fetchInstance Fetch library, as provided by the current framework.
    */
@@ -84,7 +83,6 @@ class FetchBackend extends HttpBackend {
    * This approach is essentially "monkey patching" fetch, since it doesn't
    * have built-in intercepting. There is a library, fetch-intercept, but
    * at the time of writing it doesn't support node.js.
-   *
    * @param {string} url URL to which the request will be submitted.
    * @param {*} config Configuration options as supported by fetch.
    * @returns {Promise<*>} Resolves with the HTTP response as provided by

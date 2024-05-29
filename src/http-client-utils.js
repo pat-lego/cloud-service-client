@@ -21,7 +21,6 @@ const HttpBackend = require("./http-backends/http-backend");
 
 /**
  * Retrieves the Retry-After header value from an HTTP response.
- *
  * @param {HttpResponse} response Response whose information will be used.
  * @returns {number} The number of milliseconds to wait before retrying, as specified
  *  in the response. Will be falsy if no retry after information is present.
@@ -46,7 +45,6 @@ function getRetryAfter(response) {
 /**
  * Uses the strategies defined in HTTP options to determine whether a request needs to
  * be retried based on its response.
- *
  * @param {HttpOptions} httpOptions Options whose strategies will be used.
  * @param {HttpBackend} backend Backend processing the request.
  * @param {HttpResponse} response Response that will be given to each strategy.

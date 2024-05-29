@@ -26,7 +26,6 @@ class Verifier {
   // eslint-disable-next-line jsdoc/require-returns-check
   /**
    * Retrieves the export that should be used in conjunction with the verifier.
-   *
    * @param {*} clientExports Exports from the HTTP client.
    * @param {typedefs.ClientOptions} options Options to use with the backend.
    * @returns {*} Export for the verifier.
@@ -38,7 +37,6 @@ class Verifier {
   /**
    * Verifies that a given object contains the custom properties expected in client
    * responses.
-   *
    * @param {*} toVerify Item to be verified.
    */
   verifyClientProperties(toVerify) {
@@ -62,7 +60,6 @@ class Verifier {
    *
    * This function will look for client-specific values within an "options"
    * property on the target.
-   *
    * @param {*} toVerify Item to be verified.
    * @param {*} expected Simple object whose keys and values will be verified
    *  on the target. The value of the key may be a function; if so, the function
@@ -78,7 +75,6 @@ class Verifier {
   /**
    * Verifies that a given object contains specific custom properties expected in
    * client responses.
-   *
    * @param {*} toVerify Item to be verified.
    * @param {*} expected Simple object whose keys and values will be verified
    *  on the target. The value of the key may be a function; if so, the function
@@ -101,7 +97,6 @@ class Verifier {
 
   /**
    * Ensures that a given response indicates success.
-   *
    * @param {*} res Response received from an underlying HTTP library.
    * @param {number} [expectedStatus] Expected status code of the response. Default: 200.
    */
@@ -115,7 +110,6 @@ class Verifier {
 
   /**
    * Ensures that a given response indicates failure.
-   *
    * @param {Function} toRun Function to run that will generate an HTTP response. It will receive
    *  no arguments, and should return a Promise that resolves to an HTTP response from the
    *  underlying HTTP library.
@@ -131,7 +125,6 @@ class Verifier {
   /**
    * Not intended to be called directly. Can be implemented by child classes to perform any
    * additional library-specific verification on success responses.
-   *
    * @param {*} res Response received from an underlying HTTP library.
    */
   verifySpecificSuccess(res) {
@@ -141,7 +134,6 @@ class Verifier {
   // eslint-disable-next-line jsdoc/require-returns-check
   /**
    * Retrieves the value of an HTTP header from a response.
-   *
    * @param {*} res Response received from an underlying HTTP library.
    * @param {string} header Name of the header to retrieve.
    * @returns {string} Value of the given header.
@@ -152,7 +144,6 @@ class Verifier {
 
   /**
    * Verifies that the body of an HTTP response is an expected value.
-   *
    * @param {*} res Response received from an underlying HTTP library.
    * @param {object} expectedBody Expected value of the body, typically a simple
    *  javascript object.
@@ -165,7 +156,6 @@ class Verifier {
 
   /**
    * Verifies that the body of an HTTP request is empty.
-   *
    * @param {*} res Response received from an underlying HTTP library.
    * @returns {Promise} Should resolve when the verification is complete.
    */
@@ -176,7 +166,6 @@ class Verifier {
 
   /**
    * Retrieves the body of an HTTP response.
-   *
    * @param {*} res Response received from an underlying HTTP library.
    * @returns {Promise<object>} The body of the response as a simple javascript object.
    */

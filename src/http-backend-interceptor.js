@@ -25,7 +25,6 @@ const _getClient = Symbol("_getClient");
 class HttpBackendInterceptor {
   /**
    * Constructs a new interceptor that uses the given dependencies.
-   *
    * @param {HttpClient} httpClient Client whose functionality is being used by the
    *  interceptor.
    */
@@ -38,7 +37,6 @@ class HttpBackendInterceptor {
   /**
    * Intercepts an HTTP request before it is submitted, providing an opportunity
    * for the client to modify the requests options.
-   *
    * @param {*} backend Backend being used to process the request.
    * @param {*} config Request configuration as received by the client.
    * @returns {Promise<*>} Resolves with a modified set of request options.
@@ -50,7 +48,6 @@ class HttpBackendInterceptor {
   /**
    * Intercepts error that occur before a request can be submitted, providing an
    * opportunity to potentially handle the error and retry the request.
-   *
    * @param {*} backend Backend being used to process the request.
    * @param {*} config Request configuration as received by the client.
    * @param {*} error The error that occurred processing the request.
@@ -68,7 +65,6 @@ class HttpBackendInterceptor {
    * Intercepts responses that come back from the HTTP library, providing an
    * opportunity to perform additional operations, such as retrying failed
    * requests.
-   *
    * @param {*} backend Backend being used to process the request.
    * @param {*} config Request configuration as received by the client.
    * @param {*} response The response as provided by the underlying HTTP library.
@@ -95,7 +91,6 @@ class HttpBackendInterceptor {
    * Intercepts errors that come back from the HTTP library, providing an
    * opportunity to perform additional operations, such as retrying
    * failed requests.
-   *
    * @param {*} backend Backend being used to process the request.
    * @param {*} config Request configuration as received by the client.
    * @param {*} error The error that occurred processing the request.
@@ -134,7 +129,6 @@ class HttpBackendInterceptor {
   /**
    * Retrieves the HTTP client being used by the interceptor, as provided in the class
    * constructor.
-   *
    * @returns {HttpClient} An HTTP client.
    */
   [_getClient]() {

@@ -22,7 +22,6 @@ const _extend = Symbol("_extend");
 class HttpResponse {
   /**
    * Constructs a new response.
-   *
    * @param {*} rawResponse Raw response on which the client's response is
    *  based.
    * @param {*} [error] If provided, an error that will be associated with
@@ -37,7 +36,6 @@ class HttpResponse {
 
   /**
    * Retrieves the status code of the response.
-   *
    * @returns {number} HTTP status code.
    */
   getStatus() {
@@ -48,7 +46,6 @@ class HttpResponse {
   /**
    * Retrieves the headers of the response. The return value should be a simple
    * object whose keys are header names and whose values are header values.
-   *
    * @returns {*} The response's headers.
    */
   getHeaders() {
@@ -58,7 +55,6 @@ class HttpResponse {
 
   /**
    * Retrieves the status text of the response.
-   *
    * @returns {string} HTTP status text;
    */
   getStatusText() {
@@ -68,7 +64,6 @@ class HttpResponse {
 
   /**
    * Retrieves the raw response from the underlying HTTP backend, as-is.
-   *
    * @returns {*} Raw response of the underlying HTTP backend.
    */
   getRawResponse() {
@@ -79,7 +74,6 @@ class HttpResponse {
   /**
    * Sets the amount of time, in milliseconds, that it took for the underlying
    * HTTP library to submit the request and get a response.
-   *
    * @param {number} requestTime Time span in milliseconds.
    */
   setRequestTime(requestTime) {
@@ -91,7 +85,6 @@ class HttpResponse {
    * underlying HTTP library. The result could be various things, such as an HTTP
    * response or a javascript error. No matter the result, it will have been
    * extended with the additional information provided by the client.
-   *
    * @param {object} clientInfo Simple object containing information that should be
    *  included in the cloudClient property that will be added to the response.
    * @returns {*} The final result to provide to the client's consumer.
@@ -115,7 +108,6 @@ class HttpResponse {
   /**
    * Converts the response to a readable JSON format, with fewer properties. In particular,
    * the JSON won't contain information about the request that generated the response.
-   *
    * @returns {object} Response values as JSON.
    */
   toJSON() {
@@ -162,7 +154,6 @@ class HttpResponse {
 
   /**
    * Returns a stringified version of the response's JSON.
-   *
    * @returns {string} Stringified JSON.
    */
   toString() {
@@ -172,7 +163,6 @@ class HttpResponse {
   /**
    * Does the work of extending a target with additional information provided
    * by the client.
-   *
    * @param {*} toExtend The item that will be extended with more properties.
    * @param {*} clientInfo Additional information to include on the response's
    *  cloudClient property.
