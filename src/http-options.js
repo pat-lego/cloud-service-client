@@ -9,7 +9,7 @@ OF ANY KIND, either express or implied. See the License for the specific languag
 governing permissions and limitations under the License.
 */
 
-const { Cookie, CookieJar } = require("tough-cookie");
+const { Cookie, CookieJar, MemoryCookieStore } = require("tough-cookie");
 const { v4: uuid } = require("uuid");
 
 const {
@@ -272,7 +272,7 @@ class HttpOptions {
   async getCookieJar() {
     const { cookies } = this[PRIVATE];
     if (!cookies) {
-      const cookieJar = new CookieJar();
+      const cookieJar = new CookieJar(new MemoryCookieStore(), { rejectPublicSuffixes: false });
       let cookieList = [];
       const { headers = {} } = this.getOptions();
 

@@ -10,7 +10,7 @@ governing permissions and limitations under the License.
 */
 
 const { promisify } = require("util");
-const { Cookie, CookieJar } = require("tough-cookie");
+const { Cookie, CookieJar, MemoryCookieStore } = require("tough-cookie");
 
 const HttpOptions = require("./http-options");
 const HttpResponse = require("./http-response");
@@ -33,7 +33,9 @@ const PRIVATE = Symbol("PRIVATE");
  */
 class HttpClient {
   constructor() {
-    this[PRIVATE] = { cookieJar: new CookieJar() };
+    this[PRIVATE] = {
+      cookieJar: new CookieJar(new MemoryCookieStore(), { rejectPublicSuffixes: false }),
+    };
   }
 
   /**
